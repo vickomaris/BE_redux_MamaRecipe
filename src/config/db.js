@@ -5,14 +5,14 @@ const {
   DB_USERNAME,
   DB_PASSWORD,
   DB_NAME,
-  PORT
+  DB_PORT
 } = require('../helper/env')
 const db = new pg.Pool({
   host: DB_HOSTNAME,
   user: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_NAME,
-  port: PORT
+  port: DB_PORT
 })
 
 // cek koneksi
