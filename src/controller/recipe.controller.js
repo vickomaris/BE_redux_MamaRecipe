@@ -69,9 +69,10 @@ const recipeController = {
   insert: async (req, res) => {
     try {
       // image
+      const photo = await cloudinary.uploader.upload(req.file.path)
       // tangkap data dari body
       const { title, ingredients, video } = req.body
-      const photo = await cloudinary.uploader.upload(req.file.path)
+      console.log(photo)
       const data = {
         title,
         ingredients,
@@ -81,6 +82,7 @@ const recipeController = {
         photo_public_id: photo.public_id,
         photo_secure_url: photo.secure_url
       }
+      console.log(data)
       recipeModel.store(data).then((result) => {
         success(res, result, 'success', ' success add recipe')
       }).catch((err) => {
