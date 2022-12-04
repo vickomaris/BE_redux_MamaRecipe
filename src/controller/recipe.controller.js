@@ -3,6 +3,7 @@
 const recipeModel = require('../model/recipe.model')
 const { success, failed } = require('../helper/response')
 
+const cloudinary = require('../helper/cloudinary')
 const recipeController = {
   // list: (req, res) => {
   //   const page = parseInt(req.query.page) || 1
@@ -65,15 +66,20 @@ const recipeController = {
   // },
 
   // insert photo
-  insert: (req, res) => {
+  insert: async (req, res) => {
     try {
       // image
-      const photo = req.file.filename
       // tangkap data dari body
       const { title, ingredients, video } = req.body
-
+      const photo = await cloudinary.uploader.upload(req.file.path)
       const data = {
-        title, ingredients, photo, video
+        title,
+        ingredients,
+        photo,
+        video,
+        photo_url: photo.url,
+        photo_public_id: photo.public_id,
+        photo_secure_url: photo.secure_url
       }
       recipeModel.store(data).then((result) => {
         success(res, result, 'success', ' success add recipe')
@@ -85,32 +91,24 @@ const recipeController = {
     }
   },
 
-  // insert: (req, res) => {
-  //   try {
-  //     // image
-  //     const photo = req.files.filename
-  //     // tangkap data dari body
-  //     const { title, ingredients, video, created_at } = req.body
-
-  //     const data = {
-  //       title, ingredients, photo, video, created_at
-  //     }
-
-  //     recipeModel.insert(data).then((result) => {
-  //       success(res, result, 'success', 'upload recipe success')
-  //     }).catch((err) => {
-  //       failed(res, err.message, 'failed', 'upload recipe failed')
-  //     })
-  //   } catch (err) {
-  //     failed(res, err.message, 'failed', 'internal server error')
-  //   }
-  // },
-
-  update: (req, res) => {
+  update: async (req, res) => {
     const { title, ingredients, video, created_at } = req.body
     const id = req.params.id
-    const photo = req.file.filename
-    recipeModel.update(id, title, ingredients, photo, video, created_at).then((result) => {
+    // const photo = req.file.filename
+    const photo = await cloudinary.uploader.upload(req.file.path)
+    console.log(photo)
+    const data = {
+      id,
+      title,
+      ingredients,
+      photo,
+      video,
+      created_at,
+      photo_url: photo.url,
+      photo_public_id: photo.public_id,
+      photo_secure_url: photo.secure_url
+    }
+    recipeModel.update(data).then((result) => {
       res.json(result)
     }).catch((err) => {
       res.json(err)

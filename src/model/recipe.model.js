@@ -59,14 +59,17 @@ const recipeModel = {
     })
   },
   // update
-  update: (id, title, ingredients, photo, video, created_at) => new Promise((resolve, reject) => {
+  update: (id, title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url) => new Promise((resolve, reject) => {
     db.query(`UPDATE tb_recipes SET 
     title = COALESCE ($1, title), 
     ingredients = COALESCE ($2, ingredients), 
     photo = COALESCE ($3, photo), 
     video = COALESCE ($4, video), 
-    created_at = COALESCE ($5, now()) WHERE id = $6`,
-    [title, ingredients, photo, video, created_at, id], (err, result) => {
+    created_at = COALESCE ($5, now()),
+    photo_url = COALESCE ($6, photo_url),
+    photo_public_id = COALESCE ($7, photo_public_id),
+    photo_secure_url = COALESCE ($8, photo_secure_url) WHERE id = $9`,
+    [title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id], (err, result) => {
       if (err) {
         reject(err)
       } else {
@@ -91,7 +94,7 @@ const recipeModel = {
   // insert food photo
   store: ({ title, ingredients, photo, video, created_at }) => {
     return new Promise((resolve, reject) => {
-      db.query(`INSERT INTO tb_recipes ( title, ingredients, photo, video, created_at) VALUES  ('${title}', '${ingredients}', '${photo}', '${video}', now())`,
+      db.query(`INSERT INTO tb_recipes ( title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url) VALUES  ('${title}', '${ingredients}', '${photo}', '${video}', now(), '${photo_url}', '${photo_public_id}', '${photo_secure_url}')`,
         (err, res) => {
           if (err) {
             reject(err)
