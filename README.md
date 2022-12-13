@@ -53,7 +53,7 @@ This is a Back-End FoodRecipe. This is built using Express JS and PostgreSQL.
 ## Getting Started
 Installation
 
-- Clone this project with `git clone https://github.com/vickomaris/IntermediateBE_foodrecipe
+- Clone this project with `git clone https://github.com/vickomaris/BE_redux_MamaRecipe#packages-included
 
 - Install package required with ```npm install```
 
