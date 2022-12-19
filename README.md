@@ -105,9 +105,9 @@ Run program with ```npm start```
 
 
 ## Related Project
-RESTful API for this web application, clone this for development Foodtemplate.\
+Front End for this web application, clone this for development Foodtemplate.
 - [Frontend-MamaRecipe](https://github.com/vickomaris/FE_redux_mamaRecipe)
-- [deploy-vercel](https://fe-redux-mama-recipe.vercel.app/)
+- [Deploy-MamaRecipe](https://fe-redux-mama-recipe.vercel.app/)
 
 ## Contributing
 
