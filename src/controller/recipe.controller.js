@@ -116,6 +116,7 @@ const recipeController = {
       res.json(err)
     })
   },
+
   destroy: (req, res) => {
     const { id } = req.params
     recipeModel
