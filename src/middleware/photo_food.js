@@ -5,9 +5,9 @@ const path = require('path')
 // untuk management file
 const multerUpload = multer({
   storage: multer.diskStorage({
-    // destination: (req, file, cb) => {
-    //   cb(null, './photofoods')
-    // },
+    destination: (req, file, cb) => {
+      cb(null, './photofoods')
+    },
     filename: (req, file, cb) => {
       const ext = path.extname(file.originalname)
       const filename = Date.now() + '' + ext
