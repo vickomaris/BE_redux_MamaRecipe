@@ -100,7 +100,6 @@ const recipeController = {
     const photo = await cloudinary.uploader.upload(req.file.path)
     console.log(photo)
     const data = {
-      id,
       title,
       ingredients,
       photo,
@@ -108,7 +107,8 @@ const recipeController = {
       created_at,
       photo_url: photo.url,
       photo_public_id: photo.public_id,
-      photo_secure_url: photo.secure_url
+      photo_secure_url: photo.secure_url,
+      id
     }
     recipeModel.update(data).then((result) => {
       res.json(result)

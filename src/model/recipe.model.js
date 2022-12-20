@@ -59,7 +59,7 @@ const recipeModel = {
     })
   },
   // update
-  update: (id, title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url) => new Promise((resolve, reject) => {
+  update: (title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id) => new Promise((resolve, reject) => {
     db.query(`UPDATE tb_recipes SET 
     title = COALESCE ($1, title), 
     ingredients = COALESCE ($2, ingredients), 
