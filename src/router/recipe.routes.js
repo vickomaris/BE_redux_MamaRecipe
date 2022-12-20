@@ -15,6 +15,6 @@ router
   .post('/recipe/:title', detailTitle)
   .get('/recipe/search/:title', search)
   .put('/recipe/:id', uploadFoods, update)
-  .delete('/recipe/:id', deleteFoods, destroy)
+  .delete('/recipe/:id', destroy)
 
 module.exports = router
