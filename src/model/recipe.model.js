@@ -59,8 +59,36 @@ const recipeModel = {
     })
   },
   // update
-  update: (title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id) => new Promise((resolve, reject) => {
-    db.query(`UPDATE tb_recipes SET 
+  // update: ({ title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id }) => {
+  //   // console.log(title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id)
+  //   return new Promise((resolve, reject) => {
+  //     db.query(`UPDATE tb_recipes SET
+  //   title = COALESCE ($1, title),
+  //   ingredients = COALESCE ($2, ingredients),
+  //   photo = COALESCE ($3, photo),
+  //   video = COALESCE ($4, video),
+  //   created_at = COALESCE ($5, now()),
+  //   photo_url = COALESCE ($6, photo_url),
+  //   photo_public_id = COALESCE ($7, photo_public_id),
+  //   photo_secure_url = COALESCE ($8, photo_secure_url) WHERE id = $9`,
+  //     [title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id], (err, result) => {
+  //       if (err) {
+  //         reject(err)
+  //         console.log('print', { title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id })
+  //       } else {
+  //         resolve(result)
+  //         console.log('print sukses', { title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id })
+  //       }
+  //     })
+  //   })
+  // },
+
+  // update
+  update: (data) => {
+    // console.log(title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id)
+    // console.log('model', data)
+    return new Promise((resolve, reject) => {
+      db.query(`UPDATE tb_recipes SET 
     title = COALESCE ($1, title), 
     ingredients = COALESCE ($2, ingredients), 
     photo = COALESCE ($3, photo), 
@@ -68,15 +96,19 @@ const recipeModel = {
     created_at = COALESCE ($5, now()),
     photo_url = COALESCE ($6, photo_url),
     photo_public_id = COALESCE ($7, photo_public_id),
-    photo_secure_url = COALESCE ($8, photo_secure_url) WHERE id = $9`,
-    [title, ingredients, photo, video, created_at, photo_url, photo_public_id, photo_secure_url, id], (err, result) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(result)
-      }
+    photo_secure_url = COALESCE ($8, photo_secure_url) 
+    WHERE id = $9`,
+      [data.title, data.ingredients, data.photo, data.video, data.created_at, data.photo_pub_id, data.photo_url, data.photo_secure_url, data.id], (err, result) => {
+        if (err) {
+          reject(err)
+          // console.log('model error', data)
+        } else {
+          resolve(result)
+          // console.log('model berhasil', data)
+        }
+      })
     })
-  }),
+  },
 
   // router insert
   // store: (title, ingredients, photo, video, created_at) => {
