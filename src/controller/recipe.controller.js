@@ -111,9 +111,9 @@ const recipeController = {
       id
     }
     recipeModel.update(data).then((result) => {
-      res.json(result)
+      success(res, result, 'success', ' success add recipe')
     }).catch((err) => {
-      res.json(err)
+      failed(res, err.message, 'failed', 'failed add recipe')
     })
   },
 
